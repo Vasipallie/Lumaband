@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LumaBand</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Funnel+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-light: #fef5ce;
+            --primary: #2d5475;
+            --primary-dark: #1d3a58;
+            --accent: #f6ad55;
+            --text: #203043;
+            --muted: #4f6d8a;
+            --shadow: 0 18px 45px rgba(27, 45, 68, 0.18);
+        }
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            margin: 0;
+            font-family: 'Funnel Sans', sans-serif;
+            background: radial-gradient(circle at top right, #fffbe6 0%, var(--bg-light) 45%, #fde2a4 100%);
+            color: var(--text);
+        }
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+        .page-wrap {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px 120px;
+        }
+        .page-header {
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            background: linear-gradient(90deg, rgba(255,255,255,0.92), rgba(255,255,255,0.75));
+            -webkit-backdrop-filter: blur(14px);
+            backdrop-filter: blur(14px);
+            border-bottom: 1px solid rgba(13, 31, 52, 0.05);
+        }
+        nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 24px;
+            padding: 18px 24px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 26px;
+            font-weight: 700;
+            color: var(--primary);
+        }
+        .logo img {
+            height: 56px;
+        }
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 28px;
+        }
+        .nav-link {
+            position: relative;
+            padding: 0 6px 12px;
+            font-weight: 600;
+            color: var(--muted);
+            transition: color 0.2s ease;
+        }
+        .nav-link::after {
+            content: "";
+            position: absolute;
+            left: 50%;
+            bottom: -6px;
+            transform: translateX(-50%);
+            width: 140%;
+            height: 3px;
+            background: currentColor;
+            border-radius: 999px;
+            opacity: 0;
+            transition: opacity 0.2s ease, transform 0.2s ease;
+        }
+        .nav-link:hover,
+        .nav-link:focus {
+            color: var(--primary);
+        }
+        .nav-link:hover::after,
+        .nav-link:focus::after,
+        .nav-link.is-active::after {
+            opacity: 1;
+            transform: translateX(-50%);
+        }
+        .hero {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 48px;
+            padding: 64px 0 40px;
+        }
+        .hero-copy h1 {
+            font-size: clamp(3rem, 4vw + 1rem, 4.6rem);
+            line-height: 1;
+            color: var(--primary);
+            margin: 0 0 18px;
+        }
+        .hero-subtitle {
+            font-size: clamp(1.3rem, 1vw + 1rem, 1.9rem);
+            color: var(--primary);
+            font-weight: 600;
+            margin: 0 0 12px;
+        }
+        .hero-copy p {
+            font-size: 20px;
+            color: var(--muted);
+            margin: 0 0 28px;
+            max-width: 520px;
+        }
+        .hero-buttons {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+        .hero-quick-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 18px;
+            border-radius: 999px;
+            background: rgba(45, 84, 117, 0.12);
+            color: var(--primary);
+            font-weight: 600;
+            font-size: 17px;
+            transition: transform 0.2s ease, background 0.2s ease;
+        }
+        .hero-quick-link:hover,
+        .hero-quick-link:focus {
+            transform: translateY(-2px);
+            background: rgba(246, 173, 85, 0.2);
+        }
+        .hero-quick-link .icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            background: var(--primary);
+            color: #fff;
+            transition: transform 0.2s ease, background 0.2s ease;
+        }
+        .hero-quick-link:hover .icon,
+        .hero-quick-link:focus .icon {
+            transform: translate(2px, -2px);
+            background: var(--accent);
+            color: var(--primary-dark);
+        }
+        .hero-quick-link svg {
+            width: 16px;
+            height: 16px;
+        }
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 14px 24px;
+            border-radius: 999px;
+            font-size: 18px;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease, color 0.2s ease;
+            box-shadow: 0 18px 35px rgba(45, 84, 117, 0.18);
+        }
+        .btn:hover,
+        .btn:focus {
+            transform: translateY(-2px);
+            background: rgba(246, 173, 85, 0.2);
+            color: var(--primary);
+            box-shadow: 0 18px 32px rgba(45, 84, 117, 0.12);
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, #2d5475, #3a7ca5);
+            color: #fff;
+            box-shadow: var(--shadow);
+        }
+        .btn-primary:hover,
+        .btn-primary:focus {
+            background: rgba(246, 173, 85, 0.2);
+            color: var(--primary);
+            box-shadow: 0 18px 32px rgba(45, 84, 117, 0.12);
+        }
+        .btn-secondary {
+            background: rgba(45, 84, 117, 0.08);
+            color: var(--primary);
+        }
+        .hero-art {
+            flex: 1;
+            position: relative;
+            min-height: 340px;
+        }
+        .hero-orb {
+            position: absolute;
+            inset: 0;
+            margin: auto;
+            width: 100%;
+            max-width: 420px;
+            aspect-ratio: 1;
+            border-radius: 50%;
+            background-image: url('jok.jpg');
+            background-size: cover;
+            background-position: center;
+        }
+        .section-title {
+            font-size: 32px;
+            color: var(--primary);
+            margin: 0 0 16px;
+            text-align: center;
+        }
+        .section-title--left {
+            text-align: left;
+        }
+        .family-section {
+            display: flex;
+            align-items: center;
+            gap: 48px;
+            padding: 60px 0;
+        }
+        .family-copy {
+            flex: 1;
+        }
+        .family-copy p {
+            font-size: 19px;
+            color: var(--muted);
+            margin: 0 0 24px;
+        }
+        .checklist {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            display: grid;
+            gap: 14px;
+        }
+        .checklist li {
+            position: relative;
+            padding-left: 28px;
+            font-size: 18px;
+            color: var(--muted);
+        }
+        .checklist li::before {
+            content: "\2713";
+            position: absolute;
+            left: 0;
+            top: -2px;
+            color: var(--accent);
+            font-weight: 700;
+            font-size: 18px;
+        }
+        .family-visual {
+            flex: 1;
+            position: relative;
+            min-height: 320px;
+            border-radius: 16px;
+            background-image: url('pekka.jpg');
+            background-size: cover;
+            background-position: center;
+            overflow: hidden;
+        }
+        .family-visual::after {
+            content: "Peace of mind, always on.";
+            position: absolute;
+            bottom: 24px;
+            left: 24px;
+            right: 24px;
+            padding: 18px 22px;
+            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.92);
+            color: var(--primary);
+            font-weight: 600;
+            font-size: 18px;
+            text-align: center;
+            z-index: 1;
+        }
+        .cta-panel {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 24px;
+            padding: 38px 44px;
+            border-radius: 28px;
+            background: #fff;
+            border: 1px solid rgba(45, 84, 117, 0.08);
+            color: var(--text);
+        }
+        .cta-panel h2 {
+            margin: 0 0 12px;
+            font-size: 32px;
+            color: var(--primary);
+        }
+        .cta-panel p {
+            margin: 0;
+            font-size: 18px;
+            max-width: 520px;
+            color: var(--muted);
+        }
+        footer {
+            margin-top: 80px;
+            text-align: center;
+            color: rgba(32, 48, 67, 0.6);
+            font-size: 15px;
+        }
+        @media (max-width: 900px) {
+            .hero {
+                flex-direction: column;
+                text-align: center;
+            }
+            .hero-art {
+                width: 100%;
+                max-width: 360px;
+                margin-top: 24px;
+            }
+            .cta-panel {
+                flex-direction: column;
+                text-align: center;
+                align-items: center;
+                padding: 32px 28px;
+                gap: 20px;
+            } 
+            .family-section {
+                flex-direction: column-reverse;
+                text-align: center;
+                gap: 32px;
+            }
+            .family-visual {
+                width: 100%;
+                max-width: 360px;
+            }
+            .family-copy {
+                max-width: 520px;
+                margin: 0 auto;
+            }
+            .section-title--left {
+                text-align: center;
+            }
+            .checklist {
+                justify-items: start;
+                margin: 0 auto;
+            }
+            .hero-buttons {
+                justify-content: center;
+            }
+            nav {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 12px;
+                padding: 16px 20px;
+            }
+            .nav-links {
+                width: 100%;
+                justify-content: center;
+                gap: 16px;
+                flex-wrap: wrap;
+            }
+        }
+        @media (max-width: 640px) {
+            .page-wrap {
+                padding: 0 18px 80px;
+            }
+            .nav-links {
+                flex-wrap: wrap;
+                gap: 12px;
+            }
+            .hero-copy h1 {
+                font-size: 2.5rem;
+            }
+            .hero-copy p {
+                font-size: 18px;
+            }
+            .hero-buttons,
+            .cta-panel .hero-buttons {
+                width: 100%;
+                flex-direction: column;
+            }
+            .btn,
+            .hero-quick-link {
+                width: 100%;
+                justify-content: center;
+            }
+            .hero-quick-link {
+                padding: 12px 16px;
+            }
+            .family-visual::after {
+                left: 16px;
+                right: 16px;
+                padding: 16px 18px;
+            }
+            .cta-panel {
+                padding: 28px 22px;
+            }
+        }
+        @media (max-width: 480px) {
+            .logo {
+                font-size: 22px;
+            }
+            .logo img {
+                height: 44px;
+            }
+            .hero-copy h1 {
+                font-size: 2.2rem;
+            }
+            .hero-copy p {
+                font-size: 17px;
+            }
+            .hero {
+                padding: 48px 0 32px;
+            }
+            .family-section {
+                padding: 48px 0;
+            }
+            footer {
+                margin-top: 60px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="page-header"> 
+        <nav> 
+            <a class="logo" href="index.html">
+                <img src="logo.png" alt="LumaBand Logo" class="logo-img">
+                <span>LumaBand</span> 
+            </a> 
+            <div class="nav-links"> 
+                <a href="index.html"  class="nav-link is-active">Home</a>
+                <a href="lumaband.html" class="nav-link ">LumaBand</a>
+                <a href="about.html" class="nav-link"> About</a>
+                <a href="preorder.html" class="nav-link"> Pre-order  </a>
+            </div>
+        </nav>
+    </header>  
+    <main  class="page-wrap"> 
+        <section  class="hero">
+            <div class="hero-copy" >
+                <h1>LumaBand</h1> 
+                <p class="hero-subtitle">Care that you can wear.</p>
+                 <p>LumaBand keeps an empathetic eye on your family, sending instant alerts when a fall happens, or when they are unsafe</p>
+                <div class="hero-buttons">
+                     <button onclick="window.location.href='preorder.html'" class="btn btn-primary">Pre-order Now</button>
+                     <a class="hero-quick-link" href="lumaband.html">
+                             Explore the band
+                        <span class="icon" aria-hidden="true">
+                              <svg viewBox="0 0 16 16" role="presentation" focusable="false">
+                                <path d="M6 5h5v5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                                 <path d="M6 10.5L11 5.5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                            </svg> 
+                        </span>
+                    </a>
+                </div>
+            </div>
+             <div class="hero-art">
+                <div class="hero-orb">
+                     
+                </div>
+            </div> 
+        </section>
+
+         <section class="family-section">
+            <div class="family-visual"> </div>
+            <div class="family-copy"> 
+                <h2 class="section-title section-title--left">Freedom for them, confidence for you</h2>
+                <p>LumaBand gives older adults the freedom to live their routines while gently keeping family in the loop with meaningful, respectful updates.</p>
+                <ul class="checklist"> 
+                    <li>Instant alerts when they experience falls</li>
+                     <li>Heads 
+                     up when its ready to recharge the band</li>
+                    <li>Fall-safe technology to protect your loved ones</li>
+                </ul> 
+            </div> 
+        </section>
+
+        <footer> 
+            © <span id="year"></span> LumaBand. Care that You can wear
+        </footer>
+    </main>
+    <script>  
+         document.getElementById('year').textContent = new Date().getFullYear();
+    </script>
+</body>
+</html>

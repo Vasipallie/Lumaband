@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Page Not Found | LumaBand</title>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Funnel+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
+	<style>
+		:root {
+			--bg-light: #fef5ce;
+			--primary: #2d5475;
+			--primary-dark: #1d3a58;
+			--accent: #f6ad55;
+			--text: #203043;
+			--muted: #4f6d8a;
+			--shadow: 0 18px 45px rgba(27, 45, 68, 0.18);
+		}
+
+		* {
+			box-sizing: border-box;
+		}
+
+		body {
+			margin: 0;
+			min-height: 100vh;
+			font-family: 'Funnel Sans', sans-serif;
+			background: radial-gradient(circle at top right, #fffbe6 0%, var(--bg-light) 45%, #fde2a4 100%);
+			color: var(--text);
+			display: flex;
+			flex-direction: column;
+		}
+
+		header {
+			background: linear-gradient(90deg, rgba(255, 255, 255, 0.92), rgba(255, 255, 255, 0.75));
+			-webkit-backdrop-filter: blur(14px);
+			backdrop-filter: blur(14px);
+			border-bottom: 1px solid rgba(13, 31, 52, 0.05);
+		}
+
+		nav {
+			max-width: 1200px;
+			margin: 0 auto;
+			padding: 18px 24px;
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			gap: 24px;
+		}
+
+		.logo {
+			display: flex;
+			align-items: center;
+			gap: 12px;
+			font-size: 26px;
+			font-weight: 700;
+			color: var(--primary);
+		}
+
+		.logo img {
+			height: 56px;
+		}
+
+		.nav-links {
+			display: flex;
+			align-items: center;
+			gap: 28px;
+		}
+
+		.nav-link {
+			position: relative;
+			padding: 0 6px 12px;
+			font-weight: 600;
+			color: var(--muted);
+			text-decoration: none;
+			transition: color 0.2s ease;
+		}
+
+		.nav-link::after {
+			content: "";
+			position: absolute;
+			left: 50%;
+			bottom: -6px;
+			transform: translateX(-50%);
+			width: 140%;
+			height: 3px;
+			background: currentColor;
+			border-radius: 999px;
+			opacity: 0;
+			transition: opacity 0.2s ease, transform 0.2s ease;
+		}
+
+		.nav-link:hover,
+		.nav-link:focus {
+			color: var(--primary);
+		}
+
+		.nav-link:hover::after,
+		.nav-link:focus::after {
+			opacity: 1;
+			transform: translateX(-50%);
+		}
+
+		main {
+			flex: 1;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			padding: 48px 24px 96px;
+		}
+
+		.not-found-card {
+			max-width: 520px;
+			width: 100%;
+			padding: 48px 44px;
+			background: rgba(255, 255, 255, 0.9);
+			border-radius: 32px;
+			border: 1px solid rgba(45, 84, 117, 0.08);
+			box-shadow: var(--shadow);
+			text-align: center;
+		}
+
+		.not-found-card h1 {
+			margin: 0 0 12px;
+			font-size: clamp(3rem, 6vw, 4.5rem);
+			color: var(--primary);
+		}
+
+		.not-found-card p {
+			margin: 0 0 28px;
+			font-size: 18px;
+			color: var(--muted);
+		}
+
+		.btn-primary {
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+			gap: 10px;
+			padding: 14px 24px;
+			border-radius: 999px;
+			font-size: 18px;
+			font-weight: 600;
+			border: none;
+			cursor: pointer;
+			background: linear-gradient(135deg, #2d5475, #3a7ca5);
+			color: #fff;
+			text-decoration: none;
+			box-shadow: var(--shadow);
+			transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+		}
+
+		.btn-primary:hover,
+		.btn-primary:focus {
+			transform: translateY(-2px);
+			background: rgba(246, 173, 85, 0.2);
+			color: var(--primary);
+			box-shadow: 0 18px 32px rgba(45, 84, 117, 0.12);
+		}
+
+		footer {
+			text-align: center;
+			padding: 24px 12px 48px;
+			color: rgba(32, 48, 67, 0.6);
+			font-size: 14px;
+		}
+
+		@media (max-width: 640px) {
+			nav {
+				flex-direction: column;
+				align-items: flex-start;
+				gap: 12px;
+			}
+
+			.nav-links {
+				width: 100%;
+				justify-content: center;
+				gap: 16px;
+				flex-wrap: wrap;
+			}
+
+			.not-found-card {
+				padding: 36px 28px;
+			}
+		}
+	</style>
+</head>
+<body>
+	<header>
+		<nav>
+			<a class="logo" href="index.html">
+				<img src="logo.png" alt="LumaBand Logo" class="logo-img">
+				<span>LumaBand</span>
+			</a>
+			<div class="nav-links">
+				<a href="index.html" class="nav-link">Home</a>
+				<a href="lumaband.html" class="nav-link">LumaBand</a>
+				<a href="about.html" class="nav-link">About</a>
+				<a href="preorder.html" class="nav-link">Pre-order</a>
+			</div>
+		</nav>
+	</header>
+
+	<main>
+		<div class="not-found-card">
+			<h1>404</h1>
+			<p>We couldn't find the page you're looking for. Try heading back home or exploring the LumaBand overview.</p>
+			<a class="btn-primary" href="index.html">Back to homepage</a>
+		</div>
+	</main>
+
+	<footer>
+		© <span id="year"></span> LumaBand. Care that you can wear.
+	</footer>
+
+	<script>
+		document.getElementById('year').textContent = new Date().getFullYear();
+	</script>
+</body>
+</html>
