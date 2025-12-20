@@ -3,7 +3,7 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Page Not Found | LumaBand</title>
+	<title>About Us | LumaBand</title>
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Funnel+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
@@ -104,15 +104,15 @@
 
 		main {
 			flex: 1;
-			display: flex;
-			align-items: center;
-			justify-content: center;
 			padding: 48px 24px 96px;
+			max-width: 1200px;
+			margin: 0 auto;
+			width: 100%;
 		}
 
-		.not-found-card {
-			max-width: 520px;
-			width: 100%;
+		.about-content {
+			max-width: 800px;
+			margin: 0 auto;
 			padding: 48px 44px;
 			background: rgba(255, 255, 255, 0.9);
 			border-radius: 32px;
@@ -121,16 +121,21 @@
 			text-align: center;
 		}
 
-		.not-found-card h1 {
-			margin: 0 0 12px;
-			font-size: clamp(3rem, 6vw, 4.5rem);
+		.about-content h1 {
+			margin: 0 0 24px;
+			font-size: clamp(2.5rem, 5vw, 3.5rem);
 			color: var(--primary);
 		}
 
-		.not-found-card p {
-			margin: 0 0 28px;
+		.about-content p {
+			margin: 0 0 20px;
 			font-size: 18px;
-			color: var(--muted);
+			line-height: 1.6;
+			color: var(--text);
+		}
+
+		.about-content p:last-child {
+			margin-bottom: 0;
 		}
 
 		.btn-primary {
@@ -180,7 +185,7 @@
 				flex-wrap: wrap;
 			}
 
-			.not-found-card {
+			.about-content {
 				padding: 36px 28px;
 			}
 		}
@@ -202,10 +207,13 @@
 	</header>
 
 	<main>
-		<div class="not-found-card">
-			<h1>404</h1>
-			<p>We couldn't find the page you're looking for. Try heading back home or exploring the LumaBand overview.</p>
-			<a class="btn-primary" href="index.html">Back to homepage</a>
+		<div class="about-content">
+			<h1>About LumaBand</h1>
+			<p>We're a group of high school students who started a company to help others and make the world better.</p>
+			<p>Introducing LumaBand!</p>
+			<p>LumaBand is a wearable device for seniors that uses sensors to detect falls and alerts their emergency contacts automatically, like family or caregivers.</p>
+			<p>It includes fall detection with sensors and can send SMS to up to 3 saved contacts.</p>
+			<a class="btn-primary" href="preorder.html">Pre-order Now</a>
 		</div>
 	</main>
 

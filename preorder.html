@@ -536,7 +536,7 @@
 			</a>
 			<div class="nav-links">
 				<a href="index.html" class="nav-link">Home</a>
-				<a href="lumaband.html" class="nav-link">LumaBand</a>
+
 				<a href="about.html" class="nav-link">About</a>
 				<a href="preorder.html" class="nav-link is-active">Pre-order</a>
 			</div>
@@ -929,6 +929,48 @@
 			shippingDetailsField.addEventListener('input', updateSummary);
 
 			updateSummary();
+
+			const form = document.querySelector('.preorder-form-card form');
+			form.addEventListener('submit', async (e) => {
+				e.preventDefault();
+				submitButton.disabled = true;
+				submitButton.textContent = 'Submitting...';
+
+				const formData = new FormData(form);
+				const data = {
+					'full-name': formData.get('full-name'),
+					'email': formData.get('email'),
+					'phone': formData.get('phone'),
+					'quantity': formData.get('quantity'),
+					'region': formData.get('region'),
+					'shipping-details': formData.get('shipping-details'),
+					'notes': formData.get('notes') || ''
+				};
+
+				try {
+					const response = await fetch('https://sheetdb.io/api/v1/1gxp9v2eah9if', {
+						method: 'POST',
+						headers: {
+							'Content-Type': 'application/json'
+						},
+						body: JSON.stringify(data)
+					});
+
+					if (response.ok) {
+						alert('Thank you for your preorder! We will contact you soon.');
+						form.reset();
+						updateSummary();
+					} else {
+						throw new Error('Submission failed');
+					}
+				} catch (error) {
+					alert('There was an error submitting your preorder. Please try again.');
+					console.error('Error:', error);
+				} finally {
+					submitButton.disabled = false;
+					submitButton.textContent = 'Place Order';
+				}
+			});
 		});
 	</script>
 </body>
