@@ -554,13 +554,11 @@
 							<div class="price-row">
 								<span class="price" id="price-per-unit">$59.99</span>
 							</div>
-							<p class="deposit-note">Live order summary updates automatically when you choose a quantity and shipping option.</p>
+							<!-- <p class="deposit-note">Live order summary updates automatically when you choose a quantity and shipping option.</p> -->
 							<div class="order-summary" aria-live="polite">
 								<h3>Order snapshot</h3>
 								<p><span class="summary-label">Quantity:</span><span id="summary-quantity">0</span></p>
 								<p><span class="summary-label">Total price:</span><span id="summary-total">$0</span></p>
-								<p><span class="summary-label">Shipping Costs:</span><span id="summary-deposit">$0</span></p>
-								<p><span class="summary-label">Balance at shipment:</span><span id="summary-balance">$0</span></p>
 								<p><span class="summary-label">Shipping region:</span><span id="summary-region">Not selected</span></p>
 								<p><span class="summary-label">Shipping details:</span><span id="summary-details">Not provided</span></p>
 							</div>
@@ -872,17 +870,14 @@
 	<script>
 		document.addEventListener('DOMContentLoaded', function () {
 			document.getElementById('year').textContent = new Date().getFullYear();
-			const UNIT_PRICE = 59.99;
-			const DEPOSIT_PER_UNIT = 0;
-			const BALANCE_PER_UNIT = UNIT_PRICE - DEPOSIT_PER_UNIT;
+				const UNIT_PRICE = 59.99;
 
 			const quantitySelect = document.getElementById('quantity');
 			const regionSelect = document.getElementById('region');
 			const shippingDetailsField = document.getElementById('shipping-details');
 			const summaryQuantity = document.getElementById('summary-quantity');
 			const summaryTotal = document.getElementById('summary-total');
-			const summaryDeposit = document.getElementById('summary-deposit');
-			const summaryBalance = document.getElementById('summary-balance');
+// ...existing code...
 			const summaryRegion = document.getElementById('summary-region');
 			const summaryDetails = document.getElementById('summary-details');
 			const submitButton = document.querySelector('.preorder-form-card button');
@@ -893,36 +888,32 @@
 				minimumFractionDigits: 0,
 			});
 
-			function updateSummary() {
-				const quantity = parseInt(quantitySelect.value, 10) || 0;
-				const totalPrice = quantity * UNIT_PRICE;
-				const depositTotal = quantity * DEPOSIT_PER_UNIT;
-				const balanceTotal = quantity * BALANCE_PER_UNIT;
-				const regionText = regionSelect.value ? regionSelect.options[regionSelect.selectedIndex].text : 'Not selected';
-				const detailsText = shippingDetailsField.value.trim();
+				function updateSummary() {
+					const quantity = parseInt(quantitySelect.value, 10) || 0;
+					const totalPrice = quantity * UNIT_PRICE;
+					const regionText = regionSelect.value ? regionSelect.options[regionSelect.selectedIndex].text : 'Not selected';
+					const detailsText = shippingDetailsField.value.trim();
 
-				summaryQuantity.textContent = quantity.toString();
-				summaryTotal.textContent = totalPrice ? formatCurrency(totalPrice) : '$0';
-				summaryDeposit.textContent = depositTotal ? formatCurrency(depositTotal) : '$0';
-				summaryBalance.textContent = balanceTotal ? formatCurrency(balanceTotal) : '$0';
-				summaryRegion.textContent = regionText;
-				const detailsForSummary = detailsText && detailsText.length > 120 ? `${detailsText.slice(0, 117)}…` : detailsText;
-				summaryDetails.textContent = detailsForSummary ? detailsForSummary : 'Not provided';
+					summaryQuantity.textContent = quantity.toString();
+					summaryTotal.textContent = totalPrice ? formatCurrency(totalPrice) : '$0';
+					summaryRegion.textContent = regionText;
+					const detailsForSummary = detailsText && detailsText.length > 120 ? `${detailsText.slice(0, 117)}…` : detailsText;
+					summaryDetails.textContent = detailsForSummary ? detailsForSummary : 'Not provided';
 
-				let buttonLabel = '';
-				if (!quantity) {
-					buttonLabel = 'Select quantity to continue';
-				} else if (!regionSelect.value) {
-					buttonLabel = 'Choose a shipping region';
-				} else if (!detailsText) {
-					buttonLabel = 'Add shipping details to continue';
-				} else {
-					buttonLabel = `Place Order`;
+					let buttonLabel = '';
+					if (!quantity) {
+						buttonLabel = 'Select quantity to continue';
+					} else if (!regionSelect.value) {
+						buttonLabel = 'Choose a shipping region';
+					} else if (!detailsText) {
+						buttonLabel = 'Add shipping details to continue';
+					} else {
+						buttonLabel = `Place Order`;
+					}
+
+					submitButton.textContent = buttonLabel;
+					submitButton.disabled = !(quantity && regionSelect.value && detailsText);
 				}
-
-				submitButton.textContent = buttonLabel;
-				submitButton.disabled = !(quantity && regionSelect.value && detailsText);
-			}
 
 			quantitySelect.addEventListener('change', updateSummary);
 			regionSelect.addEventListener('change', updateSummary);
