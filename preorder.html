@@ -552,7 +552,7 @@
 							<div class="offer-tag">Early Access</div>
 							<h1>Pre-Order your LumaBand</h1>
 							<div class="price-row">
-								<span class="price" id="price-per-unit">$59.99</span>
+								<span class="price" id="price-per-unit">$69.99</span>
 							</div>
 							<!-- <p class="deposit-note">Live order summary updates automatically when you choose a quantity and shipping option.</p> -->
 							<div class="order-summary" aria-live="polite">
@@ -588,6 +588,20 @@
 										<option value="4">4</option>
 									</select>
 								</div>
+								   <div class="form-group">
+									   <label for="color">Color</label>
+									   <select id="color" name="color" required>
+										   <option value="" disabled selected>Select color</option>
+										   <option value="blue">Blue</option>
+										   <option value="black">Black</option>
+										   <option value="grey">Grey</option>
+									   </select>
+								   </div>
+								   <div class="form-group">
+									   <label for="multi-color-choice">If ordering more than one LumaBand, would you like different colours? Write NA if this question is not applicable to you. <span style="color:var(--accent);">*</span></label>
+									   <input type="text" id="multi-color-choice" name="multi-color-choice" placeholder='e.g. "1 Blue, 1 Black"' required>
+									   <div style="font-size:15px; color:var(--muted); margin-top:4px;">Your response should look like this example: <br> <span style="font-style:italic;">"1 Blue, 1 Black"</span></div>
+								   </div>
 								<div class="form-group">
 									<label for="region">Shipping region</label>
 									<select id="region" name="region" required>
@@ -851,10 +865,23 @@
 									<textarea id="shipping-details" name="shipping-details" placeholder="Street address, city, postal code" required></textarea>
 								</div>
 								<div class="form-group">
+									<label>Payment QR Code</label>
+									<div style="text-align:center; margin-bottom:12px;">
+										<img src="payments.jpeg" alt="Scan to Pay" style="max-width:180px; width:100%; border-radius:16px; box-shadow:0 4px 16px rgba(45,84,117,0.12);">
+										<div style="font-size:15px; color:var(--muted); margin-top:8px;">Scan to pay securely</div>
+									</div>
+								</div>
+								<div style="font-size:15px; color:var(--muted); margin-top:8px;">While making the payment, please add a description in the format:<br><span style="font-style:italic; color:var(--primary);">"LumaBand - [Your Name]"</span></div>
+								<div class="form-group">
+								</div>
+								<div class="form-group">
 									<label for="notes">Notes (optional)</label>
-									<textarea id="notes" name="notes" placeholder="Tell us about any special requests."></textarea>
+									<textarea id="notes" name="notes" placeholder="Tell us about "></textarea>
 								</div>
 								<button type="submit" disabled>Select quantity to continue</button>
+								<div style="text-align:center; margin-top:18px;">
+									<a href="alternate-form.htmlhttps://docs.google.com/forms/d/e/1FAIpQLSem1nMgk7wKwJ_jOKHgmX75KIHCwPS88vamgE4hyKQotmIvUQ/viewform?usp=dialog" class="btn" style="background:var(--accent); color:var(--primary); font-weight:600;">Having trouble? Try alternate form</a>
+								</div>
 							</form>
 						</aside>
 					</div>
@@ -870,7 +897,7 @@
 	<script>
 		document.addEventListener('DOMContentLoaded', function () {
 			document.getElementById('year').textContent = new Date().getFullYear();
-				const UNIT_PRICE = 59.99;
+				const UNIT_PRICE = 69.99;
 
 			const quantitySelect = document.getElementById('quantity');
 			const regionSelect = document.getElementById('region');
