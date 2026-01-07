@@ -552,7 +552,7 @@
 							<div class="offer-tag">Early Access</div>
 							<h1>Pre-Order your LumaBand</h1>
 							<div class="price-row">
-								<span class="price" id="price-per-unit">$69.99</span>
+								<span class="price" id="price-per-unit">$74.99</span>
 							</div>
 							<!-- <p class="deposit-note">Live order summary updates automatically when you choose a quantity and shipping option.</p> -->
 							<div class="order-summary" aria-live="polite">
@@ -589,18 +589,26 @@
 									</select>
 								</div>
 								   <div class="form-group">
-									   <label for="color">Color</label>
-									   <select id="color" name="color" required>
-										   <option value="" disabled selected>Select color</option>
-										   <option value="blue">Blue</option>
+									   <label for="box-color">Box Color</label>
+									   <select id="box-color" name="box-color" required>
+										   <option value="" disabled selected>Select box color</option>
+										   <option value="red">Red</option>
 										   <option value="black">Black</option>
-										   <option value="grey">Grey</option>
+									   </select>
+								   </div>
+								   <div class="form-group">
+									   <label for="strap-color">Strap Color</label>
+									   <select id="strap-color" name="strap-color" required>
+										   <option value="" disabled selected>Select strap color</option>
+										   <option value="black">Black</option>
+										   <option value="blue">Blue</option>
+										   <option value="gray">Gray</option>
 									   </select>
 								   </div>
 								   <div class="form-group">
 									   <label for="multi-color-choice">If ordering more than one LumaBand, would you like different colours? Write NA if this question is not applicable to you. <span style="color:var(--accent);">*</span></label>
-									   <input type="text" id="multi-color-choice" name="multi-color-choice" placeholder='e.g. "1 Blue, 1 Black"' required>
-									   <div style="font-size:15px; color:var(--muted); margin-top:4px;">Your response should look like this example: <br> <span style="font-style:italic;">"1 Blue, 1 Black"</span></div>
+									   <input type="text" id="multi-color-choice" name="multi-color-choice" placeholder='e.g. "1 Red Box + Black Strap, 1 Black Box + Blue Strap"' required>
+									   <div style="font-size:15px; color:var(--muted); margin-top:4px;">Your response should look like this example: <br> <span style="font-style:italic;">"1 Red Box + Black Strap, 1 Black Box + Blue Strap"</span></div>
 								   </div>
 								<div class="form-group">
 									<label for="region">Shipping region</label>
@@ -905,8 +913,9 @@
 
 	<script>
 		document.addEventListener('DOMContentLoaded', function () {
-			document.getElementById('year').textContent = new Date().getFullYear();
-				const UNIT_PRICE = 69.99;
+			const yearEl = document.getElementById('year');
+			if (yearEl) yearEl.textContent = new Date().getFullYear();
+			const UNIT_PRICE = 74.99;
 
 			const quantitySelect = document.getElementById('quantity');
 			const regionSelect = document.getElementById('region');
@@ -923,34 +932,35 @@
 				minimumFractionDigits: 0,
 			});
 
-				function updateSummary() {
-					const quantity = parseInt(quantitySelect.value, 10) || 0;
-					const totalPrice = quantity * UNIT_PRICE;
-					const regionText = regionSelect.value ? regionSelect.options[regionSelect.selectedIndex].text : 'Not selected';
-					const detailsText = shippingDetailsField.value.trim();
+			function updateSummary() {
+				const quantity = quantitySelect.value ? parseInt(quantitySelect.value, 10) : 0;
+				const totalPrice = quantity * UNIT_PRICE;
+				const regionText = regionSelect.value ? regionSelect.options[regionSelect.selectedIndex].text : 'Not selected';
+				const detailsText = shippingDetailsField.value.trim();
 
-					summaryQuantity.textContent = quantity.toString();
-					summaryTotal.textContent = totalPrice ? formatCurrency(totalPrice) : '$0';
-					summaryRegion.textContent = regionText;
-					const detailsForSummary = detailsText && detailsText.length > 120 ? `${detailsText.slice(0, 117)}…` : detailsText;
-					summaryDetails.textContent = detailsForSummary ? detailsForSummary : 'Not provided';
+				summaryQuantity.textContent = quantity.toString();
+				summaryTotal.textContent = totalPrice ? formatCurrency(totalPrice) : '$0';
+				summaryRegion.textContent = regionText;
+				const detailsForSummary = detailsText && detailsText.length > 120 ? `${detailsText.slice(0, 117)}…` : detailsText;
+				summaryDetails.textContent = detailsForSummary ? detailsForSummary : 'Not provided';
 
-					let buttonLabel = '';
-					if (!quantity) {
-						buttonLabel = 'Select quantity to continue';
-					} else if (!regionSelect.value) {
-						buttonLabel = 'Choose a shipping region';
-					} else if (!detailsText) {
-						buttonLabel = 'Add shipping details to continue';
-					} else {
-						buttonLabel = `Place Order`;
-					}
-
-					submitButton.textContent = buttonLabel;
-					submitButton.disabled = !(quantity && regionSelect.value && detailsText);
+				let buttonLabel = '';
+				if (!quantity) {
+					buttonLabel = 'Select quantity to continue';
+				} else if (!regionSelect.value) {
+					buttonLabel = 'Choose a shipping region';
+				} else if (!detailsText) {
+					buttonLabel = 'Add shipping details to continue';
+				} else {
+					buttonLabel = `Place Order`;
 				}
 
+				submitButton.textContent = buttonLabel;
+				submitButton.disabled = !(quantity && regionSelect.value && detailsText);
+			}
+
 			quantitySelect.addEventListener('change', updateSummary);
+			quantitySelect.addEventListener('input', updateSummary);
 			regionSelect.addEventListener('change', updateSummary);
 			shippingDetailsField.addEventListener('input', updateSummary);
 
@@ -968,6 +978,9 @@
 					'email': formData.get('email'),
 					'phone': formData.get('phone'),
 					'quantity': formData.get('quantity'),
+					'box-color': formData.get('box-color'),
+					'strap-color': formData.get('strap-color'),
+					'multi-color-choice': formData.get('multi-color-choice'),
 					'region': formData.get('region'),
 					'shipping-details': formData.get('shipping-details'),
 					'notes': formData.get('notes') || ''
