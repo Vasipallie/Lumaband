@@ -3,7 +3,7 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>LumaBand | Preorder</title>
+	<title>LumaBand | Order</title>
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Funnel+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
@@ -538,7 +538,7 @@
 				<a href="index.html" class="nav-link">Home</a>
 
 				<a href="about.html" class="nav-link">About</a>
-				<a href="preorder.html" class="nav-link is-active">Pre-order</a>
+				<a href="preorder.html" class="nav-link is-active">Order</a>
 			</div>
 		</nav>
 	</header>
@@ -550,9 +550,9 @@
 					<div class="preorder-grid">
 						<div class="preorder-copy">
 							<div class="offer-tag">Early Access</div>
-							<h1>Pre-Order your LumaBand</h1>
+							<h1>Order your LumaBand</h1>
 							<div class="price-row">
-								<span class="price" id="price-per-unit">$74.99</span>
+								<span class="price" id="price-per-unit">$72.99</span>
 							</div>
 							<!-- <p class="deposit-note">Live order summary updates automatically when you choose a quantity and shipping option.</p> -->
 							<div class="order-summary" aria-live="polite">
@@ -564,7 +564,7 @@
 							</div>
 						</div>
 						<aside class="preorder-form-card">
-							<h2 class="form-heading">Pre-Order form</h2>
+							<h2 class="form-heading">Order form</h2>
 							<form>
 								<div class="form-group">
 									<label for="full-name">Full name</label>
@@ -915,7 +915,9 @@
 		document.addEventListener('DOMContentLoaded', function () {
 			const yearEl = document.getElementById('year');
 			if (yearEl) yearEl.textContent = new Date().getFullYear();
-			const UNIT_PRICE = 74.99;
+			const UNIT_PRICE = 72.99;
+			const pricePerUnitEl = document.getElementById('price-per-unit');
+			if (pricePerUnitEl) pricePerUnitEl.textContent = `$${UNIT_PRICE.toFixed(2)}`;
 
 			const quantitySelect = document.getElementById('quantity');
 			const regionSelect = document.getElementById('region');
@@ -929,7 +931,8 @@
 			const formatCurrency = (amount) => amount.toLocaleString('en-US', {
 				style: 'currency',
 				currency: 'USD',
-				minimumFractionDigits: 0,
+				minimumFractionDigits: 2,
+				maximumFractionDigits: 2,
 			});
 
 			function updateSummary() {
@@ -939,7 +942,7 @@
 				const detailsText = shippingDetailsField.value.trim();
 
 				summaryQuantity.textContent = quantity.toString();
-				summaryTotal.textContent = totalPrice ? formatCurrency(totalPrice) : '$0';
+				summaryTotal.textContent = totalPrice ? formatCurrency(totalPrice) : '$0.00';
 				summaryRegion.textContent = regionText;
 				const detailsForSummary = detailsText && detailsText.length > 120 ? `${detailsText.slice(0, 117)}…` : detailsText;
 				summaryDetails.textContent = detailsForSummary ? detailsForSummary : 'Not provided';
@@ -996,14 +999,14 @@
 					});
 
 					if (response.ok) {
-						alert('Thank you for your preorder! We will contact you soon.');
+						alert('Thank you for your order! We will contact you soon.');
 						form.reset();
 						updateSummary();
 					} else {
 						throw new Error('Submission failed');
 					}
 				} catch (error) {
-					alert('There was an error submitting your preorder. Please try again.');
+					alert('There was an error submitting your order. Please try again.');
 					console.error('Error:', error);
 				} finally {
 					submitButton.disabled = false;
